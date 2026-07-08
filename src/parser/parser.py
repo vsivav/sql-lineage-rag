@@ -95,10 +95,7 @@ class SQLParser:
 
         visitor = ASTVisitor() 
         metadata = visitor.visit(ast)
-        return {
-            "ast": ast,
-            "metadata": metadata
-        }
+        return metadata
 
     # --------------------------------------------------
     # Helpers
