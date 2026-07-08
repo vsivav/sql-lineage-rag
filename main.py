@@ -3,6 +3,7 @@ from src.lineage.column_lineage import ColumnLineageBuilder
 from src.lineage.function_analyzer import FunctionAnalyzer
 from src.lineage.cte_resolver import CTEResolver
 from src.lineage.subquery_resolver import SubqueryResolver
+from src.lineage.lineage_engine import LineageEngine
 
 parser = SQLParser()
 
@@ -74,4 +75,35 @@ print("\nSUBQUERIES\n")
 for subquery in subqueries:
 
     print(subquery)
+
+parser = SQLParser()
+
+ast = parser.parse_file("tests/sample.sql")
+
+engine = LineageEngine()
+
+result = engine.analyze(ast)
+
+print("\nALIASES")
+print(result.aliases)
+
+print("\nTABLE LINEAGE")
+for r in result.table_relationships:
+    print(r)
+
+print("\nCOLUMN LINEAGE")
+for c in result.column_lineage:
+    print(c)
+
+print("\nCTEs")
+for c in result.ctes:
+    print(c)
+
+print("\nSUBQUERIES")
+for s in result.subqueries:
+    print(s)
+
+print("\nFUNCTIONS")
+for f in result.functions:
+    print(f)
 
