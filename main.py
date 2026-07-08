@@ -2,6 +2,7 @@ from src.lineage.table_lineage import TableLineageBuilder
 from src.lineage.column_lineage import ColumnLineageBuilder
 from src.lineage.function_analyzer import FunctionAnalyzer
 from src.lineage.cte_resolver import CTEResolver
+from src.lineage.subquery_resolver import SubqueryResolver
 
 parser = SQLParser()
 
@@ -61,4 +62,16 @@ print("\nCTEs\n")
 for cte in ctes:
 
     print(cte)
+
+resolver = SubqueryResolver()
+
+statement = ast[0]
+
+subqueries = resolver.resolve(statement)
+
+print("\nSUBQUERIES\n")
+
+for subquery in subqueries:
+
+    print(subquery)
 
