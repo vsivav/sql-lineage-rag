@@ -1,42 +1,43 @@
-from dataclasses import dataclass, field
-from typing import List
+from typing import List, Optional
+
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class TableInfo:
+class TableModel(BaseModel):
     name: str
-    alias: str = ""
+    schema: Optional[str] = None
+    database: Optional[str] = None
+    alias: Optional[str] = None
 
 
-@dataclass
-class JoinInfo:
+class ColumnModel(BaseModel):
+    name: str
+    alias: Optional[str] = None
+    table: Optional[str] = None
+    expression: Optional[str] = None
+
+
+class JoinModel(BaseModel):
+    join_type: str
     left_table: str
     right_table: str
-    join_type: str
-    condition: str
+    condition: Optional[str] = None
 
 
-@dataclass
-class ColumnInfo:
-    name: str
-    alias: str = ""
-    expression: str = ""
-
-
-@dataclass
-class CTEInfo:
+class CTEModel(BaseModel):
     name: str
     sql: str
 
 
-@dataclass
-class ProcedureInfo:
-    name: str
+class ProcedureModel(BaseModel):
+    procedure_name: str = ""
 
-    tables: List[TableInfo] = field(default_factory=list)
+    tables: List[TableModel] = Field(default_factory=list)
 
-    joins: List[JoinInfo] = field(default_factory=list)
+    columns: List[ColumnModel] = Field(default_factory=list)
 
-    columns: List[ColumnInfo] = field(default_factory=list)
+    joins: List[JoinModel] = Field(default_factory=list)
 
-    ctes: List[CTEInfo] = field(default_factory=list)
+    ctes: List[CTEModel] = Field(default_factory=list)
+
+    raw_sql: str = ""
