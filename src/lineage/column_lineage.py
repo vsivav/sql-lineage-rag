@@ -29,7 +29,7 @@ from typing import List
 from sqlglot import exp
 
 from src.lineage.alias_resolver import AliasResolver
-
+from src.lineage.expression_parser import ExpressionParser
 
 # ----------------------------------------------------------
 # Models
@@ -125,7 +125,9 @@ class ColumnLineageBuilder:
         #
         # Expression text
         #
-        expression = projection.sql()
+        self.expression_parser = ExpressionParser()
+        metadata = self.expression_parser.parse(projection)
+        expression = metadata.expression
 
         #
         # Create lineage
