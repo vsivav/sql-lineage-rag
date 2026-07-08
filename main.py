@@ -1,19 +1,17 @@
 from src.parser.parser import SQLParser
 
-if __name__ == "__main__":
+parser = SQLParser()
 
-    parser = SQLParser()
+result = parser.parse_file("tests/sample.sql")
 
-    ast = parser.parse_file("tests/sample.sql")
+print()
 
-    print("=" * 80)
+print("TABLES")
 
-    print("Statements Parsed :", len(ast))
+print(result["metadata"]["tables"])
 
-    print("=" * 80)
+print()
 
-    for statement in ast:
+print("COLUMNS")
 
-        print(statement)
-
-        print("-" * 80)
+print(result["metadata"]["columns"])
