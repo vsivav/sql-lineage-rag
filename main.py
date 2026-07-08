@@ -9,6 +9,7 @@ from src.metadata.generator import MetadataGenerator
 from src.metadata.json_exporter import JsonExporter
 from src.metadata.chunk_builder import ChunkBuilder
 from src.embeddings.embedder import Embedder
+from src.vectorstore.index_builder import IndexBuilder
 
 parser = SQLParser()
 
@@ -157,3 +158,17 @@ records = embedder.embed_chunks(chunks)
 print()
 
 print(records[0])
+
+builder = IndexBuilder()
+
+store = builder.build(chunks)
+
+store.save(
+
+    "output/lineage.faiss",
+
+    "output/metadata.json"
+
+)
+
+print("FAISS Index Created")
