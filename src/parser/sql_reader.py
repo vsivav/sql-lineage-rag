@@ -1,32 +1,26 @@
 from pathlib import Path
 
+from src.common.logger import logger
+
 
 class SQLReader:
+    """
+    Reads SQL files.
+    """
 
     @staticmethod
-    def read(file_path: str) -> str:
+    def read(path: str) -> str:
+        file_path = Path(path)
 
-        path = Path(file_path)
+        logger.info(f"Reading {file_path}")
 
-        if not path.exists():
+        if not file_path.exists():
             raise FileNotFoundError(file_path)
 
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
+        return file_path.read_text(encoding="utf-8")
 
     @staticmethod
-    def read_directory(directory: str):
+    def list_sql(directory: str):
+        root = Path(directory)
 
-        directory = Path(directory)
-
-        sql_files = []
-
-        for file in directory.glob("*.sql"):
-            sql_files.append(
-                (
-                    file.name,
-                    file.read_text(encoding="utf-8")
-                )
-            )
-
-        return sql_files
+        return sorted(root.glob("*.sql"))
