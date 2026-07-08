@@ -4,6 +4,9 @@ from src.lineage.function_analyzer import FunctionAnalyzer
 from src.lineage.cte_resolver import CTEResolver
 from src.lineage.subquery_resolver import SubqueryResolver
 from src.lineage.lineage_engine import LineageEngine
+from pathlib import Path
+from src.metadata.generator import MetadataGenerator
+from src.metadata.json_exporter import JsonExporter
 
 parser = SQLParser()
 
@@ -107,3 +110,22 @@ print("\nFUNCTIONS")
 for f in result.functions:
     print(f)
 
+generator = MetadataGenerator()
+
+metadata = generator.generate(
+
+    procedure_name="usp_LoadSales",
+
+    lineage_result=result
+
+)
+
+JsonExporter().export(
+
+    metadata,
+
+    "output/usp_LoadSales.json"
+
+)
+
+print(metadata.model_dump_json(indent=4))
