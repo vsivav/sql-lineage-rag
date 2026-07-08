@@ -10,6 +10,7 @@ from src.metadata.json_exporter import JsonExporter
 from src.metadata.chunk_builder import ChunkBuilder
 from src.embeddings.embedder import Embedder
 from src.vectorstore.index_builder import IndexBuilder
+from src.vectorstore.search_engine import SearchEngine
 
 parser = SQLParser()
 
@@ -172,3 +173,29 @@ store.save(
 )
 
 print("FAISS Index Created")
+
+engine = SearchEngine(store)
+
+results = engine.search(
+
+    "Where does CustomerAddress come from?",
+
+    top_k=3
+
+)
+
+print()
+
+print("SEARCH RESULTS")
+
+print()
+
+for result in results:
+
+    print("=" * 60)
+
+    print("Score :", result.score)
+
+    print()
+
+    print(result.record.text)
