@@ -1,4 +1,5 @@
 from src.lineage.table_lineage import TableLineageBuilder
+from src.lineage.column_lineage import ColumnLineageBuilder
 
 parser = SQLParser()
 
@@ -20,3 +21,17 @@ for relationship in graph.relationships():
         relationship.operation,
         ")"
     )
+
+builder = ColumnLineageBuilder()
+
+statement = parser.parse_file("tests/sample.sql")[0]
+
+lineage = builder.build(statement)
+
+print()
+
+print("COLUMN LINEAGE")
+
+for row in lineage:
+
+    print(row)
