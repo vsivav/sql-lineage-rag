@@ -1,5 +1,5 @@
 """
-Lineage Metadata Models
+Models used by the lineage engine.
 """
 
 from dataclasses import dataclass, field
@@ -9,9 +9,9 @@ from typing import List
 @dataclass
 class TableMetadata:
     name: str
-    alias: str = ""
-    database: str = ""
     schema: str = ""
+    database: str = ""
+    alias: str = ""
 
 
 @dataclass
@@ -25,9 +25,9 @@ class ColumnMetadata:
 @dataclass
 class JoinMetadata:
     join_type: str
-    left_table: str
-    right_table: str
-    condition: str
+    left_table: str = ""
+    right_table: str = ""
+    condition: str = ""
 
 
 @dataclass
@@ -42,9 +42,9 @@ class FunctionMetadata:
 
 
 @dataclass
-class OutputColumn:
+class OutputColumnMetadata:
     name: str
-    expression: str
+    expression: str = ""
 
 
 @dataclass
@@ -60,4 +60,4 @@ class LineageMetadata:
 
     functions: List[FunctionMetadata] = field(default_factory=list)
 
-    output_columns: List[OutputColumn] = field(default_factory=list)
+    output_columns: List[OutputColumnMetadata] = field(default_factory=list)
