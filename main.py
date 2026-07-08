@@ -2,16 +2,16 @@ from src.parser.parser import SQLParser
 
 parser = SQLParser()
 
-result = parser.parse_file("tests/sample.sql")
+metadata = parser.parse_file("tests/sample.sql")
 
-print()
+print("\nTables")
+for table in metadata.tables:
+    print(table)
 
-print("TABLES")
+print("\nColumns")
+for column in metadata.columns:
+    print(column)
 
-print(result["metadata"]["tables"])
-
-print()
-
-print("COLUMNS")
-
-print(result["metadata"]["columns"])
+print("\nJoins")
+for join in metadata.joins:
+    print(join)
