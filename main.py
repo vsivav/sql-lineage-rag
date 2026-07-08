@@ -7,6 +7,7 @@ from src.lineage.lineage_engine import LineageEngine
 from pathlib import Path
 from src.metadata.generator import MetadataGenerator
 from src.metadata.json_exporter import JsonExporter
+from src.metadata.chunk_builder import ChunkBuilder
 
 parser = SQLParser()
 
@@ -129,3 +130,21 @@ JsonExporter().export(
 )
 
 print(metadata.model_dump_json(indent=4))
+
+builder = ChunkBuilder()
+
+chunks = builder.build(metadata)
+
+print()
+
+print("CHUNKS")
+
+for chunk in chunks:
+
+    print("=" * 60)
+
+    print(chunk.chunk_id)
+
+    print()
+
+    print(chunk.text)
