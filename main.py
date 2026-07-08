@@ -1,6 +1,7 @@
 from src.lineage.table_lineage import TableLineageBuilder
 from src.lineage.column_lineage import ColumnLineageBuilder
 from src.lineage.function_analyzer import FunctionAnalyzer
+from src.lineage.cte_resolver import CTEResolver
 
 parser = SQLParser()
 
@@ -48,3 +49,16 @@ print("\nFUNCTIONS\n")
 for func in functions:
 
     print(func)
+
+resolver = CTEResolver()
+
+statement = ast[0]
+
+ctes = resolver.resolve(statement)
+
+print("\nCTEs\n")
+
+for cte in ctes:
+
+    print(cte)
+
