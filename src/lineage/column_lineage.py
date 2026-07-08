@@ -30,6 +30,7 @@ from sqlglot import exp
 
 from src.lineage.alias_resolver import AliasResolver
 from src.lineage.expression_parser import ExpressionParser
+from src.lineage.expression_parser import ExpressionMetadata
 
 # ----------------------------------------------------------
 # Models
@@ -47,6 +48,7 @@ class ColumnLineage:
     target_column: str = ""
 
     expression: str = ""
+    transformation: ExpressionMetadata | None = None
 
 
 # ----------------------------------------------------------
@@ -58,6 +60,7 @@ class ColumnLineageBuilder:
     def __init__(self):
 
         self.alias_resolver = AliasResolver()
+        self.expression_parser = ExpressionParser()
 
     # ------------------------------------------------------
 
@@ -128,6 +131,14 @@ class ColumnLineageBuilder:
         self.expression_parser = ExpressionParser()
         metadata = self.expression_parser.parse(projection)
         expression = metadata.expression
+        rows.append(
+           ColumnLineage(
+             source_table=table,
+             source_column=column.name,
+             target_column=target_name,
+             transformation=metadat
+           )
+        )
 
         #
         # Create lineage
