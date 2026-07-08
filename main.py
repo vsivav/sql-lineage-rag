@@ -8,6 +8,7 @@ from pathlib import Path
 from src.metadata.generator import MetadataGenerator
 from src.metadata.json_exporter import JsonExporter
 from src.metadata.chunk_builder import ChunkBuilder
+from src.embeddings.embedder import Embedder
 
 parser = SQLParser()
 
@@ -148,3 +149,11 @@ for chunk in chunks:
     print()
 
     print(chunk.text)
+
+embedder = Embedder()
+
+records = embedder.embed_chunks(chunks)
+
+print()
+
+print(records[0])
