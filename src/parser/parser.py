@@ -27,6 +27,7 @@ from src.common.logger import logger
 from src.common.exceptions import SQLParseException
 from src.parser.constants import SQL_DIALECT
 from src.parser.sql_reader import SQLReader
+from src.parser.ast_visitor import ASTVisitor
 
 
 class SQLParser:
