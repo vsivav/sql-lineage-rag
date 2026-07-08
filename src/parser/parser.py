@@ -93,7 +93,12 @@ class SQLParser:
 
         logger.info(f"Successfully parsed {len(ast)} SQL statement(s).")
 
-        return ast
+        visitor = ASTVisitor() 
+        metadata = visitor.visit(ast)
+        return {
+            "ast": ast,
+            "metadata": metadata
+        }
 
     # --------------------------------------------------
     # Helpers
