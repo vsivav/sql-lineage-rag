@@ -1,17 +1,22 @@
-from src.parser.parser import SQLParser
+from src.lineage.table_lineage import TableLineageBuilder
 
 parser = SQLParser()
 
-metadata = parser.parse_file("tests/sample.sql")
+ast = parser.parse_file("tests/sample.sql")
 
-print("\nTables")
-for table in metadata.tables:
-    print(table)
+builder = TableLineageBuilder()
 
-print("\nColumns")
-for column in metadata.columns:
-    print(column)
+graph = builder.build(ast)
 
-print("\nJoins")
-for join in metadata.joins:
-    print(join)
+print("\nTABLE LINEAGE\n")
+
+for relationship in graph.relationships():
+
+    print(
+        relationship.source_table,
+        " ---> ",
+        relationship.target_table,
+        "(",
+        relationship.operation,
+        ")"
+    )
