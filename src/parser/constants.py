@@ -1,27 +1,38 @@
-SUPPORTED_STATEMENTS = {
-    "SELECT",
+"""
+Parser constants.
+"""
+
+SQL_DIALECT = "tsql"
+
+SUPPORTED_FILE_TYPES = {
+    ".sql",
+    ".txt"
+}
+
+WRITE_OPERATIONS = {
     "INSERT",
     "UPDATE",
     "DELETE",
-    "MERGE",
-    "CREATE",
-    "ALTER",
-    "DROP"
+    "MERGE"
+}
+
+READ_OPERATIONS = {
+    "SELECT"
 }
 
 JOIN_TYPES = {
     "JOIN",
+    "INNER JOIN",
     "LEFT JOIN",
     "RIGHT JOIN",
     "FULL JOIN",
-    "INNER JOIN",
     "CROSS JOIN"
 }
 
 AGGREGATE_FUNCTIONS = {
     "SUM",
-    "COUNT",
     "AVG",
+    "COUNT",
     "MIN",
     "MAX"
 }
@@ -30,6 +41,8 @@ WINDOW_FUNCTIONS = {
     "ROW_NUMBER",
     "RANK",
     "DENSE_RANK",
+    "LAG",
     "LEAD",
-    "LAG"
+    "FIRST_VALUE",
+    "LAST_VALUE"
 }
