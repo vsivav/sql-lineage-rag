@@ -1,1 +1,4 @@
-
+sqlglot>=25.0.0
+sqlparse>=0.5.0
+pydantic>=2.7.0
+networkx>=3.3
